@@ -1,0 +1,404 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atlantis Music Player</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #080b0a;
+    color: white;
+    min-height: 100vh;
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+    padding: 12px;
+    gap: 12px;
+}
+
+.sidebar {
+    width: 230px;
+    background: #121815;
+    border-radius: 12px;
+    padding: 25px 18px;
+}
+
+.logo {
+    color: #1ed760;
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+
+.menu p {
+    padding: 13px 5px;
+    color: #aaa;
+    cursor: pointer;
+}
+
+.menu p:hover {
+    color: white;
+}
+
+.main {
+    flex: 1;
+    background: linear-gradient(180deg, #174c43, #17211e 45%, #121815);
+    border-radius: 12px;
+    padding: 30px;
+    padding-bottom: 120px;
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+}
+
+.top button {
+    background: #1ed760;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-weight: bold;
+}
+
+.hero {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+}
+
+.cover {
+    width: 240px;
+    height: 240px;
+    border-radius: 12px;
+    object-fit: cover;
+    box-shadow: 0 10px 35px #0008;
+}
+
+.hero-info small {
+    font-weight: bold;
+}
+
+.hero-info h1 {
+    font-size: clamp(45px, 8vw, 85px);
+    margin: 15px 0;
+}
+
+.hero-info p {
+    color: #ddd;
+}
+
+.play {
+    background: #1ed760;
+    border: none;
+    border-radius: 50%;
+    width: 58px;
+    height: 58px;
+    font-size: 25px;
+    cursor: pointer;
+    margin-right: 15px;
+}
+
+.playlist {
+    margin-top: 25px;
+}
+
+.song {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 13px;
+    border-radius: 8px;
+    background: #ffffff0a;
+    margin-top: 12px;
+}
+
+.song img {
+    width: 55px;
+    height: 55px;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+.song-info {
+    flex: 1;
+}
+
+.song-info p {
+    color: #aaa;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+.player {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #101512;
+    border-top: 1px solid #333;
+    padding: 15px 22px;
+}
+
+.player-top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 22px;
+}
+
+.player button {
+    cursor: pointer;
+    color: white;
+    background: none;
+    border: none;
+    font-size: 22px;
+}
+
+.player .main-play {
+    background: #1ed760;
+    color: black;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    font-size: 20px;
+}
+
+.progress {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    max-width: 650px;
+    margin: 10px auto 0;
+    color: #aaa;
+    font-size: 12px;
+}
+
+input[type="range"] {
+    flex: 1;
+    accent-color: #1ed760;
+    cursor: pointer;
+}
+
+.upload {
+    display: inline-block;
+    background: #1ed760;
+    color: black;
+    padding: 11px 16px;
+    border-radius: 20px;
+    margin-top: 20px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#fileInput {
+    display: none;
+}
+
+@media(max-width: 650px) {
+    .sidebar {
+        display: none;
+    }
+
+    .main {
+        padding: 20px 15px 130px;
+    }
+
+    .hero {
+        justify-content: center;
+        text-align: center;
+    }
+
+    .cover {
+        width: 210px;
+        height: 210px;
+    }
+
+    .hero-info h1 {
+        font-size: 48px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <aside class="sidebar">
+        <div class="logo">♫ Musicify</div>
+        <div class="menu">
+            <p>⌂ Home</p>
+            <p>⌕ Search</p>
+            <p>▤ Your Library</p>
+            <p>♡ Favorite Songs</p>
+        </div>
+    </aside>
+
+    <main class="main">
+
+        <div class="top">
+            <h2>♫ Musicify</h2>
+            <button>Premium Style</button>
+        </div>
+
+        <section class="hero">
+
+            <img class="cover"
+            src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=600"
+            alt="Ocean cover">
+
+            <div class="hero-info">
+                <small>FEATURED SONG</small>
+                <h1>Atlantis</h1>
+                <p>Seafret • Single</p>
+                <p>Music for your peaceful moments.</p>
+
+                <br>
+
+                <button class="play" onclick="togglePlay()">▶</button>
+                <span>Listen Now</span>
+
+                <br>
+
+                <label class="upload" for="fileInput">
+                    + Masukkan Lagu
+                </label>
+
+                <input type="file" id="fileInput"
+                accept="audio/*">
+            </div>
+
+        </section>
+
+        <section class="playlist">
+            <h2>Recently Played</h2>
+
+            <div class="song">
+                <img src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=200">
+                <div class="song-info">
+                    <h3>Atlantis</h3>
+                    <p>Seafret</p>
+                </div>
+                <span>♫</span>
+            </div>
+
+            <div class="song">
+                <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=200">
+                <div class="song-info">
+                    <h3>Ocean Memories</h3>
+                    <p>Your Playlist</p>
+                </div>
+                <span>♫</span>
+            </div>
+
+        </section>
+
+    </main>
+</div>
+
+<div class="player">
+
+    <div class="player-top">
+        <button onclick="audio.currentTime=0">↺</button>
+        <button class="main-play" onclick="togglePlay()" id="playBtn">▶</button>
+        <button onclick="audio.currentTime=audio.duration || 0">↠</button>
+    </div>
+
+    <div class="progress">
+        <span id="current">0:00</span>
+        <input type="range" id="seek"
+        min="0" max="100" value="0">
+        <span id="duration">0:00</span>
+    </div>
+
+</div>
+
+<audio id="audio"></audio>
+
+<script>
+
+const audio = document.getElementById("audio");
+const playBtn = document.getElementById("playBtn");
+const seek = document.getElementById("seek");
+const current = document.getElementById("current");
+const duration = document.getElementById("duration");
+const fileInput = document.getElementById("fileInput");
+
+function togglePlay() {
+    if (!audio.src) {
+        alert("Masukkan file lagu terlebih dahulu!");
+        return;
+    }
+
+    if (audio.paused) {
+        audio.play();
+    } else {
+        audio.pause();
+    }
+}
+
+audio.addEventListener("play", () => {
+    playBtn.textContent = "Ⅱ";
+});
+
+audio.addEventListener("pause", () => {
+    playBtn.textContent = "▶";
+});
+
+function formatTime(time) {
+    if (!Number.isFinite(time)) return "0:00";
+
+    let min = Math.floor(time / 60);
+    let sec = Math.floor(time % 60);
+
+    return min + ":" + String(sec).padStart(2, "0");
+}
+
+audio.addEventListener("loadedmetadata", () => {
+    duration.textContent = formatTime(audio.duration);
+});
+
+audio.addEventListener("timeupdate", () => {
+    current.textContent = formatTime(audio.currentTime);
+
+    if (audio.duration) {
+        seek.value = (audio.currentTime / audio.duration) * 100;
+    }
+});
+
+seek.addEventListener("input", () => {
+    if (audio.duration) {
+        audio.currentTime = (seek.value / 100) * audio.duration;
+    }
+});
+
+fileInput.addEventListener("change", () => {
+    const file = fileInput.files[0];
+
+    if (file) {
+        audio.src = URL.createObjectURL(file);
+        audio.play();
+    }
+});
+
+</script>
+
+</body>
+  </html>
+  
